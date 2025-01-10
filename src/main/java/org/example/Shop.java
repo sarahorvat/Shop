@@ -96,6 +96,14 @@ public class Shop extends JFrame {
                 clearWarenkorb();
             }
         });
+
+        bt_einkaufen.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                einkaufen();
+                clearWarenkorb();
+            }
+        });
     }
 
     private void initObjekte() {
