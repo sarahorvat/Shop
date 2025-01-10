@@ -101,11 +101,15 @@ public class Shop extends JFrame {
     }
 
     private void clearWarenkorb() {
-
+        warenkorb.clear();
+        endPreis = 0;
+        updatePreistext();
+        textArea.setText("");
     }
 
     private void einkaufen() {
-
+        JOptionPane.showMessageDialog(frame, "Danke für ihren Einkauf!");
+        clearWarenkorb();
     }
 
     private void generierenWarenkorbItem(String text) {
