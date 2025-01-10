@@ -90,6 +90,14 @@ public class Shop extends JFrame {
 
     private void hinzufuegen(String kleidung, String farbe, String groesse) {
 
+        warenkorb.add(kleidung,farbe,groesse);
+
+        double kleidungspreis = getKleidungspreis(kleidung) + getFarbenpreis(farbe) + getGroessenpreis(groesse);
+        endPreis += kleidungspreis;
+
+        generierenWarenkorbItem(kleidung +" (" + groesse + ") " + farbe + "  :" + kleidungspreis + "€", null);
+        updatePreistext();
+
     }
 
     private void clearWarenkorb() {
