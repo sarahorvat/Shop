@@ -145,7 +145,7 @@ public class Shop extends JFrame {
         for (Ware w : warenkorb.waren){
             result += String.format(" %s, %s, %s\n", w.kleidung, w.farbe, w.groesse);
         }
-        result += String.format("Summe: %.2f €", getPreis());
+        result += String.format("Summe: %.2f €", getPreismitRabatt());
         return result;
     }
 
@@ -261,7 +261,7 @@ public class Shop extends JFrame {
         return 0;
     }
 
-    public double getPreis(){
+    public double getPreismitRabatt(){
         //rabattrate hinzufügen falls aktiviert
         double preis = endPreis;
         if (mitRabatt) {
@@ -271,7 +271,7 @@ public class Shop extends JFrame {
     }
 
     private void updatePreistext() {
-        double preis = getPreis();
+        double preis = getPreismitRabatt();
 
         //Runden auf zwei Nachkommastellen
         preis = (Math.ceil(preis * 100)) / 100;
