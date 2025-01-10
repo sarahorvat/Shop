@@ -3,6 +3,7 @@ package org.example;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Collections;
 
 
@@ -59,7 +60,7 @@ public class Shop extends JFrame {
         buttonGroupGroesse.add(radio_l);
 
 
-        setTitle("Simple Shop");
+        setTitle("Shop");
         setContentPane(frame);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(500, 600);
@@ -138,6 +139,16 @@ public class Shop extends JFrame {
 
     }
 
+    public String getKassenzettel(){
+        //Ausgabe der gekauften Waren plus Summe
+        String result = "gekaufte Ware: \n";
+        for (Ware w : warenkorb.waren){
+            result += String.format(" %s, %s, %s\n", w.kleidung, w.farbe, w.groesse);
+        }
+        result += String.format("Summe: %.2f €", getPreis());
+        return result;
+    }
+
     public String getAusgewaehlteKleidung() {
         //Kleidungsstück wird aus combo Box ausgewählt
         return combo_auswahl.getSelectedItem().toString();
@@ -173,7 +184,7 @@ public class Shop extends JFrame {
         endPreis += kleidungspreis;
 
         //updated Shop Fenster
-        generierenWarenkorbItem(kleidung +" (" + groesse + ") " + farbe + "  :" + kleidungspreis + "€");
+        generierenWarenkorbItem(String.format("%s (%s) %s: %.2f €", kleidung, groesse, farbe, kleidungspreis));
         updatePreistext();
 
     }
@@ -190,7 +201,7 @@ public class Shop extends JFrame {
 
     private void einkaufen() {
         //neues Fenster wird geöffnet mit Benachrichtigung
-        JOptionPane.showMessageDialog(frame, "Danke für ihren Einkauf!");
+        JOptionPane.showMessageDialog(frame, getKassenzettel(), "Danke für Ihren Einkauf!", JOptionPane.PLAIN_MESSAGE);
         clearWarenkorb();
     }
 
@@ -250,12 +261,18 @@ public class Shop extends JFrame {
         return 0;
     }
 
-    private void updatePreistext() {
-        //rabattrate hinzufügen falls activiert
+    public double getPreis(){
+        //rabattrate hinzufügen falls aktiviert
         double preis = endPreis;
-        if (mitRabatt){
+        if (mitRabatt) {
             preis = preis * rabattRate;
         }
+        return preis;
+    }
+
+    private void updatePreistext() {
+        double preis = getPreis();
+
         //Runden auf zwei Nachkommastellen
         preis = (Math.ceil(preis * 100)) / 100;
         //Ausgabe im Preistextfeld
