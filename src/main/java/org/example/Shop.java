@@ -28,8 +28,8 @@ public class Shop extends JFrame {
     private JTextField tf_preis;
     private JButton bt_einkaufen;
     private JCheckBox ckeck_rabatt;
+    private Warenkorb warenkorb = new Warenkorb();
 
-    private Warenkorb warenkorb;
     private double endPreis;
 
     private ButtonGroup buttonGroupFarbe = new ButtonGroup();
@@ -93,6 +93,14 @@ public class Shop extends JFrame {
         bt_löschen.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                clearWarenkorb();
+            }
+        });
+
+        bt_einkaufen.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                einkaufen();
                 clearWarenkorb();
             }
         });
