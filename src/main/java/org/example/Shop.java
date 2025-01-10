@@ -217,6 +217,8 @@ public class Shop extends JFrame {
 
     private void updatePreistext() {
 
+        tf_preis.setText(String.valueOf(endPreis));
+
     }
 
 
