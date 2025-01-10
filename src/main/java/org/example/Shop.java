@@ -23,19 +23,21 @@ public class Shop extends JFrame {
     private JButton bt_hinzufügen;
     private JLabel lbl_warenkorb;
     private JTextArea textArea;
-    private JButton bt_delete;
+    private JButton bt_löschen;
     private JLabel lbl_preis;
     private JTextField tf_preis;
     private JButton bt_einkaufen;
     private JCheckBox ckeck_rabatt;
 
-
     private Warenkorb warenkorb;
     private double endPreis;
+    private double endpreis = 0;
+    private double einzelpreis = 0;
 
     private ButtonGroup buttonGroupFarbe = new ButtonGroup();
 
     private ButtonGroup buttonGroupGroesse = new ButtonGroup();
+
 
 
     public Shop() {
@@ -87,6 +89,16 @@ public class Shop extends JFrame {
                 buttonGroupFarbe.clearSelection();
                 buttonGroupGroesse.clearSelection();
                 combo_auswahl.setSelectedItem("-");
+            }
+        });
+
+        bt_löschen.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                warenkorb.ware.clear(); // Objekte aus Warenkorb zurücksetzen
+                endpreis = 0; // Preis zurücksetzen
+                tf_preis.setText(""); // Preistextfeld leeren
+                textArea.setText(""); // Textfeld "Warenkorb" leeren
             }
         });
     }
