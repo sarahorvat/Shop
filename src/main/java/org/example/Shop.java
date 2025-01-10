@@ -41,6 +41,9 @@ public class Shop extends JFrame {
     }
 
     private void initObjekte() {
+        hinzufuegen("Tshirt","S"," rot");
+        hinzufuegen("Hose", "M", " blau");
+        hinzufuegen("Cap", "L", " pink");
 
     }
 
