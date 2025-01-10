@@ -115,20 +115,57 @@ public class Shop extends JFrame {
     private void generierenWarenkorbItem(String text) {
 
     }
+    public double getKleidungspreis (String kleidung){
+        // Grundpreis für mögliche Klamotten festsetzen
 
-
-    private double getKleidungspreis(String kleidung) {
+        switch (kleidung){
+            case "Jacke":
+                return 39.99;
+            case "Cap":
+                return 12.99;
+            case "Tshirt":
+                return 14.99;
+            case "Hose":
+                return 34.99;
+            case "Pullover":
+                return 23.99;
+        }
         return 0;
     }
 
-    private double getFarbenpreis(String farbe) {
+    public double getFarbenpreis (String farbe){
+        // Preiszuschlag für versch. Farben festsetzen
+
+        switch (farbe){
+            case "rot":
+                return 4;
+            case "blau":
+                return 1;
+            case "grün":
+                return 2;
+            case "pink":
+                return 4;
+            case "schwarz":
+                return 1;
+            case "gelb":
+                return 1;
+        }
         return 0;
     }
 
-    private double getGroessenpreis(String groesse) {
+    public double getGroessenpreis(String groesse){
+        // Preiszuschlag für versch. Größen festsetzen
+
+        switch (groesse){
+            case "S":
+                return 1;
+            case "M":
+                return 2;
+            case "L":
+                return 3;
+        }
         return 0;
     }
-
 
     private void updatePreistext() {
 
