@@ -29,7 +29,7 @@ public class Shop extends JFrame {
     private JButton bt_einkaufen;
     private JCheckBox check_rabatt;
 
-    private Warenkorb warenkorb;
+    private Warenkorb warenkorb = new Warenkorb();
     private double endPreis;
 
     private ButtonGroup buttonGroupFarbe = new ButtonGroup();
@@ -58,6 +58,7 @@ public class Shop extends JFrame {
         setSize(500, 600);
         setVisible(true);
         setResizable(false);
+
 
 
         bt_hinzufügen.addActionListener(new ActionListener() {
@@ -104,6 +105,8 @@ public class Shop extends JFrame {
                 clearWarenkorb();
             }
         });
+
+        initObjekte();
     }
 
     private void initObjekte() {
@@ -227,8 +230,8 @@ public class Shop extends JFrame {
         if (check_rabatt.isSelected()){
             preis = preis * rabattRate;
         }
-
-        tf_preis.setText(String.valueOf(preis));
+        endPreis = (Math.ceil(endPreis * 100)) / 100;//Runden auf zwei Kommastellen
+        tf_preis.setText(endPreis + " €");
     }
 
 
