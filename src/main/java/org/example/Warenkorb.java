@@ -22,5 +22,8 @@ public class Warenkorb {
 
     public void clear() {
 
+        waren.clear();
+
+
     }
 }
