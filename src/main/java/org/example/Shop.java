@@ -33,13 +33,13 @@ public class Shop extends JFrame {
     private JCheckBox check_rabatt;
 
     //Attribute
-    //Übersicht der Preis und Waren
+    //Übersicht der Preise und Waren
     private Warenkorb warenkorb = new Warenkorb();
     private double endPreis;
     private boolean mitRabatt = false;
     private static double rabattRate = 0.5;
 
-    //manuelle Buttongroups um auf sie zugreifen zu können
+    //Manuelle Buttongroups um auf sie zugreifen zu können
     private ButtonGroup buttonGroupFarbe = new ButtonGroup();
     private ButtonGroup buttonGroupGroesse = new ButtonGroup();
 
@@ -78,7 +78,7 @@ public class Shop extends JFrame {
                     String groesse = getAusgewaehlteGroesse();
                     String farbe = getAusgewaehlteFarbe();
 
-                    //falls etwas nicht ausgewählt ist wird exeption geworfen
+                    //falls etwas nicht ausgewählt ist wird Exception geworfen
                     if (kleidung.equals("-")){
                         throw new Exception("Bitte wähle dein Kleidungsstück");
                     }
@@ -155,8 +155,8 @@ public class Shop extends JFrame {
     }
 
     public String getAusgewaehlteFarbe() {
-        //geht durch jeden Button in der Buttongroup Farbe und prüft ob dieser ausgewählt ist
-        //wenn ausgewählt wird text des Buttons zurückgegeben
+        //geht durch jeden Button in der Buttongroup "Farbe" und prüft, ob dieser ausgewählt ist
+        //wenn ausgewählt wird Text des Buttons zurückgegeben
         for (AbstractButton b : Collections.list(buttonGroupFarbe.getElements())) {
             if (b.isSelected()) {
                 return b.getText();
@@ -166,8 +166,8 @@ public class Shop extends JFrame {
     }
 
     public String getAusgewaehlteGroesse() {
-        //geht durch jeden Button in der Buttongroup Größe und prüft ob dieser ausgewählt ist
-        //wenn ausgewählt wird text des Buttons zurückgegeben
+        //geht durch jeden Button in der Buttongroup "Größe" und prüft, ob dieser ausgewählt ist
+        //wenn ausgewählt wird Text des Buttons zurückgegeben
         for (AbstractButton g : Collections.list(buttonGroupGroesse.getElements())){
             if (g.isSelected())
                 return g.getText();
@@ -179,9 +179,12 @@ public class Shop extends JFrame {
         //fügt Objekte zum Warenkorb hinzu
         warenkorb.add(kleidung,farbe,groesse);
 
-        //Berechnung von Preis und addierung zum Gesamtpreis
+        //Berechnung von Preis und Addierung zum Gesamtpreis
         double kleidungspreis = getKleidungspreis(kleidung) + getFarbenpreis(farbe) + getGroessenpreis(groesse);
         endPreis += kleidungspreis;
+
+        //rundet Kleidungspreis auf zwei Nachkommastellen
+        kleidungspreis = (Math.ceil(kleidungspreis * 100)) / 100;
 
         //updated Shop Fenster
         generierenWarenkorbItem(String.format("%s (%s) %s: %.2f €", kleidung, groesse, farbe, kleidungspreis));
@@ -213,7 +216,7 @@ public class Shop extends JFrame {
         }
 
     public double getKleidungspreis (String kleidung){
-        // Grundpreis für mögliche Klamotten festsetzen
+        //Grundpreis für mögliche Klamotten festsetzen
         switch (kleidung){
             case "Jacke":
                 return 39.99;
@@ -230,7 +233,7 @@ public class Shop extends JFrame {
     }
 
     public double getFarbenpreis (String farbe){
-        // Preiszuschlag für verschiedene Farben festsetzen
+        //Preiszuschlag für versch. Farben festsetzen
         switch (farbe){
             case "rot":
                 return 4;
@@ -275,6 +278,7 @@ public class Shop extends JFrame {
 
         //runden auf zwei Nachkommastellen
         preis = (Math.ceil(preis * 100)) / 100;
+
         //Ausgabe im Preistextfeld
         tf_preis.setText(preis + " €");
     }
