@@ -69,20 +69,20 @@ public class Shop extends JFrame {
                     String groesse = getAusgewaehlteGroesse();
                     String farbe = getAusgewaehlteFarbe();
 
-                if (kleidung.equals("-")){
-                    throw new Exception("Bitte wähle dein Kleidungsstück");
-                }
-                if (groesse.equals("0")) {
-                    throw new Exception("Bitte wähle deine Größe");
-                }
-                if (farbe.equals("0")){
-                    throw new Exception("Bitte wähle eine Farbe");
-                }
-                hinzufuegen(kleidung, groesse, farbe);
+                    if (kleidung.equals("-")){
+                        throw new Exception("Bitte wähle dein Kleidungsstück");
+                    }
+                    if (groesse == null) {
+                        throw new Exception("Bitte wähle deine Größe");
+                    }
+                    if (farbe == null) {
+                        throw new Exception("Bitte wähle eine Farbe");
+                    }
 
-            } catch (Exception exception){
-                JOptionPane.showMessageDialog(frame,exception.getMessage());
-            }
+                    hinzufuegen(kleidung, groesse, farbe);
+                } catch (Exception exception) {
+                    JOptionPane.showMessageDialog(frame,exception.getMessage());
+                }
 
                 buttonGroupFarbe.clearSelection();
                 buttonGroupGroesse.clearSelection();
