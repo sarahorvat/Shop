@@ -95,7 +95,7 @@ public class Shop extends JFrame {
         double kleidungspreis = getKleidungspreis(kleidung) + getFarbenpreis(farbe) + getGroessenpreis(groesse);
         endPreis += kleidungspreis;
 
-        generierenWarenkorbItem(kleidung +" (" + groesse + ") " + farbe + "  :" + kleidungspreis + "€", null);
+        generierenWarenkorbItem(kleidung +" (" + groesse + ") " + farbe + "  :" + kleidungspreis + "€");
         updatePreistext();
 
     }
@@ -108,7 +108,7 @@ public class Shop extends JFrame {
 
     }
 
-    private void generierenWarenkorbItem(String text, Runnable removeAction) {
+    private void generierenWarenkorbItem(String text) {
 
     }
 
