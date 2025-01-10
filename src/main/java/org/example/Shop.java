@@ -39,7 +39,7 @@ public class Shop extends JFrame {
     private boolean mitRabatt = false;
     private static double rabattRate = 0.5;
 
-    //Manuelle Buttongroubs um auf sie zugreifen zu könen
+    //manuelle Buttongroups um auf sie zugreifen zu können
     private ButtonGroup buttonGroupFarbe = new ButtonGroup();
     private ButtonGroup buttonGroupGroesse = new ButtonGroup();
 
@@ -78,7 +78,7 @@ public class Shop extends JFrame {
                     String groesse = getAusgewaehlteGroesse();
                     String farbe = getAusgewaehlteFarbe();
 
-                    //falls etwas nicht ausgewählt ist wirs exeption geworfen
+                    //falls etwas nicht ausgewählt ist wird exeption geworfen
                     if (kleidung.equals("-")){
                         throw new Exception("Bitte wähle dein Kleidungsstück");
                     }
@@ -125,7 +125,7 @@ public class Shop extends JFrame {
     }
 
     private void initObjekte() {
-        //fügt automatisch 3 Objekte zum Warenkorb hinzu
+        //fügt automatisch drei Objekte zum Warenkorb hinzu
         hinzufuegen("Tshirt","rot","S");
         hinzufuegen("Hose", "blau", "M");
         hinzufuegen("Cap", "pink", "L");
@@ -156,7 +156,7 @@ public class Shop extends JFrame {
 
     public String getAusgewaehlteFarbe() {
         //geht durch jeden Button in der Buttongroup Farbe und prüft ob dieser ausgewählt ist
-        //wenn ausgewählt wird text des buttons zurückgegeben
+        //wenn ausgewählt wird text des Buttons zurückgegeben
         for (AbstractButton b : Collections.list(buttonGroupFarbe.getElements())) {
             if (b.isSelected()) {
                 return b.getText();
@@ -167,7 +167,7 @@ public class Shop extends JFrame {
 
     public String getAusgewaehlteGroesse() {
         //geht durch jeden Button in der Buttongroup Größe und prüft ob dieser ausgewählt ist
-        //wenn ausgewählt wird text des buttons zurückgegeben
+        //wenn ausgewählt wird text des Buttons zurückgegeben
         for (AbstractButton g : Collections.list(buttonGroupGroesse.getElements())){
             if (g.isSelected())
                 return g.getText();
@@ -179,7 +179,7 @@ public class Shop extends JFrame {
         //fügt Objekte zum Warenkorb hinzu
         warenkorb.add(kleidung,farbe,groesse);
 
-        //Berechnung von Preis und adierung zum Gesamtpreis
+        //Berechnung von Preis und addierung zum Gesamtpreis
         double kleidungspreis = getKleidungspreis(kleidung) + getFarbenpreis(farbe) + getGroessenpreis(groesse);
         endPreis += kleidungspreis;
 
@@ -190,7 +190,7 @@ public class Shop extends JFrame {
     }
 
     private void clearWarenkorb() {
-        //Alles wird auf null gesetzt
+        //alles wird auf null gesetzt
         warenkorb.clear();
         endPreis = 0;
         updatePreistext();
@@ -230,7 +230,7 @@ public class Shop extends JFrame {
     }
 
     public double getFarbenpreis (String farbe){
-        // Preiszuschlag für versch. Farben festsetzen
+        // Preiszuschlag für verschiedene Farben festsetzen
         switch (farbe){
             case "rot":
                 return 4;
@@ -249,7 +249,7 @@ public class Shop extends JFrame {
     }
 
     public double getGroessenpreis(String groesse){
-        // Preiszuschlag für versch. Größen festsetzen
+        // Preiszuschlag für verschiedene Größen festsetzen
         switch (groesse){
             case "S":
                 return 1;
@@ -262,7 +262,7 @@ public class Shop extends JFrame {
     }
 
     public double getPreismitRabatt(){
-        //rabattrate hinzufügen falls aktiviert
+        //Rabattrate hinzufügen falls aktiviert
         double preis = endPreis;
         if (mitRabatt) {
             preis = preis * rabattRate;
@@ -273,7 +273,7 @@ public class Shop extends JFrame {
     private void updatePreistext() {
         double preis = getPreismitRabatt();
 
-        //Runden auf zwei Nachkommastellen
+        //runden auf zwei Nachkommastellen
         preis = (Math.ceil(preis * 100)) / 100;
         //Ausgabe im Preistextfeld
         tf_preis.setText(preis + " €");
