@@ -31,7 +31,6 @@ public class Shop extends JFrame {
 
     private Warenkorb warenkorb;
     private double endPreis;
-    private double einzelpreis = 0;
 
     private ButtonGroup buttonGroupFarbe = new ButtonGroup();
 
@@ -94,10 +93,7 @@ public class Shop extends JFrame {
         bt_löschen.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                warenkorb.ware.clear(); // Objekte aus Warenkorb zurücksetzen
-                endPreis = 0; // Preis zurücksetzen
-                tf_preis.setText(""); // Preistextfeld leeren
-                textArea.setText(""); // Textfeld "Warenkorb" leeren
+                clearWarenkorb();
             }
         });
     }
@@ -106,9 +102,7 @@ public class Shop extends JFrame {
         hinzufuegen("Tshirt","S"," rot");
         hinzufuegen("Hose", "M", " blau");
         hinzufuegen("Cap", "L", " pink");
-
     }
-
 
     private String getAusgewaehlteKleidung() {
         return combo_auswahl.getSelectedItem().toString();
@@ -131,9 +125,7 @@ public class Shop extends JFrame {
         return null;
     }
 
-
     private void hinzufuegen(String kleidung, String farbe, String groesse) {
-
         warenkorb.add(kleidung,farbe,groesse);
 
         double kleidungspreis = getKleidungspreis(kleidung) + getFarbenpreis(farbe) + getGroessenpreis(groesse);
@@ -159,6 +151,7 @@ public class Shop extends JFrame {
     private void generierenWarenkorbItem(String text) {
 
     }
+
     public double getKleidungspreis (String kleidung){
         // Grundpreis für mögliche Klamotten festsetzen
 
