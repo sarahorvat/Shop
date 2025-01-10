@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Warenkorb {
 
-    //Speichert die Waren in Liste
+    //speichert die Waren in Liste
     ArrayList<Ware> waren = new ArrayList <> ();
 
     public Ware add(String kleidung, String farbe, String groesse) {
