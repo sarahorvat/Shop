@@ -160,8 +160,8 @@ public class Shop extends JFrame {
 
         textArea.append(text);
         textArea.append("\n");
-
-    }
+           
+        }
 
     public double getKleidungspreis (String kleidung){
         // Grundpreis für mögliche Klamotten festsetzen
@@ -215,6 +215,13 @@ public class Shop extends JFrame {
         return 0;
     }
 
+    public boolean rabattberechnung() {
+        if (check_rabatt.isSelected()) {
+            endPreis = endPreis / 2;
+        }
+        return true;
+    }
+
     private void updatePreistext() {
         double preis = endPreis;
         if (check_rabatt.isSelected()){
@@ -223,6 +230,7 @@ public class Shop extends JFrame {
 
         tf_preis.setText(String.valueOf(preis));
     }
+
 
 
     public static void main(String[] args) {
