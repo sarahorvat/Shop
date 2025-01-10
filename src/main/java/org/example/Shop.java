@@ -8,17 +8,17 @@ import java.util.Collections;
 public class Shop extends JFrame {
     private JLabel lbl_auswahl;
     private JPanel frame;
-    private JComboBox combo_auswahl;
+    public JComboBox combo_auswahl;
     private JLabel lbl_farbe;
     private JRadioButton radio_rot;
-    private JRadioButton radio_grün;
+    public JRadioButton radio_grün;
     private JRadioButton radio_blau;
     private JRadioButton radio_gelb;
     private JRadioButton radio_schwarz;
     private JRadioButton radio_pink;
     private JLabel lbl_größe;
     private JRadioButton radio_s;
-    private JRadioButton radio_m;
+    public JRadioButton radio_m;
     private JRadioButton radio_l;
     private JButton bt_hinzufügen;
     private JLabel lbl_warenkorb;
@@ -124,11 +124,11 @@ public class Shop extends JFrame {
         hinzufuegen("Cap", "L", " pink");
     }
 
-    private String getAusgewaehlteKleidung() {
+    public String getAusgewaehlteKleidung() {
         return combo_auswahl.getSelectedItem().toString();
     }
 
-    private String getAusgewaehlteFarbe() {
+    public String getAusgewaehlteFarbe() {
         for (AbstractButton b : Collections.list(buttonGroupFarbe.getElements())) {
             if (b.isSelected()) {
                 return b.getText();
@@ -137,7 +137,7 @@ public class Shop extends JFrame {
         return null;
     }
 
-    private String getAusgewaehlteGroesse() {
+    public String getAusgewaehlteGroesse() {
         for (AbstractButton g : Collections.list(buttonGroupGroesse.getElements())){
             if (g.isSelected())
                 return g.getText();
