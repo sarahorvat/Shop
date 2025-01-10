@@ -34,6 +34,8 @@ public class Shop extends JFrame {
 
     private ButtonGroup buttonGroupFarbe = new ButtonGroup();
 
+    private boolean mitRabatt = false;
+
     private ButtonGroup buttonGroupGroesse = new ButtonGroup();
     private static double rabattRate = 0.5;
 
@@ -107,6 +109,13 @@ public class Shop extends JFrame {
         });
 
         initObjekte();
+        check_rabatt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mitRabatt = check_rabatt.isSelected();
+                updatePreistext();
+            }
+        });
     }
 
     private void initObjekte() {
@@ -152,6 +161,8 @@ public class Shop extends JFrame {
         endPreis = 0;
         updatePreistext();
         textArea.setText("");
+        check_rabatt.setSelected(false);
+
     }
 
     private void einkaufen() {
@@ -218,20 +229,13 @@ public class Shop extends JFrame {
         return 0;
     }
 
-    public boolean rabattberechnung() {
-        if (check_rabatt.isSelected()) {
-            endPreis = endPreis / 2;
-        }
-        return true;
-    }
-
     private void updatePreistext() {
         double preis = endPreis;
-        if (check_rabatt.isSelected()){
+        if (mitRabatt){
             preis = preis * rabattRate;
         }
-        endPreis = (Math.ceil(endPreis * 100)) / 100;//Runden auf zwei Kommastellen
-        tf_preis.setText(endPreis + " €");
+        preis = (Math.ceil(preis * 100)) / 100;//Runden auf zwei Kommastellen
+        tf_preis.setText(preis + " €");
     }
 
 
