@@ -1,6 +1,8 @@
 package org.example;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Collections;
 
 public class Shop extends JFrame {
@@ -56,6 +58,37 @@ public class Shop extends JFrame {
         setSize(500, 600);
         setVisible(true);
         setResizable(false);
+
+
+        bt_hinzufügen.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                try {
+                    String kleidung = getAusgewaehlteKleidung();
+                    String groesse = getAusgewaehlteGroesse();
+                    String farbe = getAusgewaehlteFarbe();
+
+                if (kleidung.equals("-")){
+                    throw new Exception("Bitte wähle dein Kleidungsstück");
+                }
+                if (groesse.equals("0")) {
+                    throw new Exception("Bitte wähle deine Größe");
+                }
+                if (farbe.equals("0")){
+                    throw new Exception("Bitte wähle eine Farbe");
+                }
+                hinzufuegen(kleidung, groesse, farbe);
+
+            } catch (Exception exception){
+                JOptionPane.showMessageDialog(frame,exception.getMessage());
+            }
+
+                buttonGroupFarbe.clearSelection();
+                buttonGroupGroesse.clearSelection();
+                combo_auswahl.setSelectedItem("-");
+            }
+        });
     }
 
     private void initObjekte() {
