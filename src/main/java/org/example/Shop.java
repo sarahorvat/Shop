@@ -150,6 +150,9 @@ public class Shop extends JFrame {
 
     private void generierenWarenkorbItem(String text) {
 
+        textArea.append(text);
+        textArea.append("\n");
+
     }
 
     public double getKleidungspreis (String kleidung){
