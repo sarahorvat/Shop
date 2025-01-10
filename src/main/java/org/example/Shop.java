@@ -1,6 +1,7 @@
 package org.example;
 
 import javax.swing.*;
+import java.util.Collections;
 
 public class Shop extends JFrame {
     private JLabel lbl_auswahl;
@@ -30,8 +31,25 @@ public class Shop extends JFrame {
     private Warenkorb warenkorb;
     private double endPreis;
 
+    private ButtonGroup buttonGroupFarbe = new ButtonGroup();
+
+    private ButtonGroup buttonGroupGroesse = new ButtonGroup();
+
 
     public Shop() {
+
+        buttonGroupFarbe.add(radio_rot);
+        buttonGroupFarbe.add(radio_gelb);
+        buttonGroupFarbe.add(radio_schwarz);
+        buttonGroupFarbe.add(radio_pink);
+        buttonGroupFarbe.add(radio_blau);
+        buttonGroupFarbe.add(radio_grün);
+
+        buttonGroupGroesse.add(radio_s);
+        buttonGroupGroesse.add(radio_m);
+        buttonGroupGroesse.add(radio_l);
+
+
         setTitle("Simple Shop");
         setContentPane(frame);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -49,14 +67,23 @@ public class Shop extends JFrame {
 
 
     private String getAusgewaehlteKleidung() {
-        return null;
+        return combo_auswahl.getSelectedItem().toString();
     }
 
     private String getAusgewaehlteFarbe() {
+        for (AbstractButton b : Collections.list(buttonGroupFarbe.getElements())) {
+            if (b.isSelected()) {
+                return b.getText();
+            }
+        }
         return null;
     }
 
     private String getAusgewaehlteGroesse() {
+        for (AbstractButton g : Collections.list(buttonGroupGroesse.getElements())){
+            if (g.isSelected())
+                return g.getText();
+        }
         return null;
     }
 
