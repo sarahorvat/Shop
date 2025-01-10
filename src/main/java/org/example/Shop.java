@@ -28,15 +28,13 @@ public class Shop extends JFrame {
     private JTextField tf_preis;
     private JButton bt_einkaufen;
     private JCheckBox ckeck_rabatt;
-    private Warenkorb warenkorb = new Warenkorb();
 
+    private Warenkorb warenkorb;
     private double endPreis;
 
     private ButtonGroup buttonGroupFarbe = new ButtonGroup();
 
     private ButtonGroup buttonGroupGroesse = new ButtonGroup();
-
-
 
     public Shop() {
 
