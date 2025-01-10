@@ -31,7 +31,6 @@ public class Shop extends JFrame {
 
     private Warenkorb warenkorb;
     private double endPreis;
-    private double endpreis = 0;
     private double einzelpreis = 0;
 
     private ButtonGroup buttonGroupFarbe = new ButtonGroup();
@@ -96,7 +95,7 @@ public class Shop extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 warenkorb.ware.clear(); // Objekte aus Warenkorb zurücksetzen
-                endpreis = 0; // Preis zurücksetzen
+                endPreis = 0; // Preis zurücksetzen
                 tf_preis.setText(""); // Preistextfeld leeren
                 textArea.setText(""); // Textfeld "Warenkorb" leeren
             }
