@@ -11,16 +11,4 @@ public class Ware {
         this.farbe = farbe;
         this.groesse = groesse;
     }
-
-    public String getKleidung() {
-        return null;
-    }
-
-    public String getFarbe() {
-        return null;
-    }
-
-    public String getGroesse() {
-        return null;
-    }
 }
