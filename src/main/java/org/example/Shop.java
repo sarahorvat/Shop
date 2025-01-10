@@ -5,7 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collections;
 
+
 public class Shop extends JFrame {
+    //Swing objects
     private JLabel lbl_auswahl;
     private JPanel frame;
     public JComboBox combo_auswahl;
@@ -29,19 +31,22 @@ public class Shop extends JFrame {
     private JButton bt_einkaufen;
     private JCheckBox check_rabatt;
 
+    //Attribute
+    //Übersicht der Preis und Waren
     private Warenkorb warenkorb = new Warenkorb();
     private double endPreis;
-
-    private ButtonGroup buttonGroupFarbe = new ButtonGroup();
-
     private boolean mitRabatt = false;
-
-    private ButtonGroup buttonGroupGroesse = new ButtonGroup();
     private static double rabattRate = 0.5;
+
+    //Manuelle Buttongroubs um auf sie zugreifen zu könen
+    private ButtonGroup buttonGroupFarbe = new ButtonGroup();
+    private ButtonGroup buttonGroupGroesse = new ButtonGroup();
+
 
 
     public Shop() {
 
+        //hinzufügen zu Buttongroups:
         buttonGroupFarbe.add(radio_rot);
         buttonGroupFarbe.add(radio_gelb);
         buttonGroupFarbe.add(radio_schwarz);
@@ -72,6 +77,7 @@ public class Shop extends JFrame {
                     String groesse = getAusgewaehlteGroesse();
                     String farbe = getAusgewaehlteFarbe();
 
+                    //falls etwas nicht ausgewählt ist wirs exeption geworfen
                     if (kleidung.equals("-")){
                         throw new Exception("Bitte wähle dein Kleidungsstück");
                     }
@@ -82,14 +88,12 @@ public class Shop extends JFrame {
                         throw new Exception("Bitte wähle eine Farbe");
                     }
 
-                    hinzufuegen(kleidung, groesse, farbe);
+                    hinzufuegen(kleidung, farbe, groesse);
                 } catch (Exception exception) {
+                    //neues Fenster öffnen zur Fehlermeldung
                     JOptionPane.showMessageDialog(frame,exception.getMessage());
                 }
-
-                buttonGroupFarbe.clearSelection();
-                buttonGroupGroesse.clearSelection();
-                combo_auswahl.setSelectedItem("-");
+                resetSelection();
             }
         });
 
@@ -109,6 +113,7 @@ public class Shop extends JFrame {
         });
 
         initObjekte();
+
         check_rabatt.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -119,16 +124,28 @@ public class Shop extends JFrame {
     }
 
     private void initObjekte() {
-        hinzufuegen("Tshirt","S"," rot");
-        hinzufuegen("Hose", "M", " blau");
-        hinzufuegen("Cap", "L", " pink");
+        //fügt automatisch 3 Objekte zum Warenkorb hinzu
+        hinzufuegen("Tshirt","rot","S");
+        hinzufuegen("Hose", "blau", "M");
+        hinzufuegen("Cap", "pink", "L");
+    }
+
+    private void resetSelection(){
+        //löscht Inhalt des Warenkorbs und Anzeige
+        buttonGroupFarbe.clearSelection();
+        buttonGroupGroesse.clearSelection();
+        combo_auswahl.setSelectedItem("-");
+
     }
 
     public String getAusgewaehlteKleidung() {
+        //Kleidungsstück wird aus combo Box ausgewählt
         return combo_auswahl.getSelectedItem().toString();
     }
 
     public String getAusgewaehlteFarbe() {
+        //geht durch jeden Button in der Buttongroup Farbe und prüft ob dieser ausgewählt ist
+        //wenn ausgewählt wird text des buttons zurückgegeben
         for (AbstractButton b : Collections.list(buttonGroupFarbe.getElements())) {
             if (b.isSelected()) {
                 return b.getText();
@@ -138,6 +155,8 @@ public class Shop extends JFrame {
     }
 
     public String getAusgewaehlteGroesse() {
+        //geht durch jeden Button in der Buttongroup Größe und prüft ob dieser ausgewählt ist
+        //wenn ausgewählt wird text des buttons zurückgegeben
         for (AbstractButton g : Collections.list(buttonGroupGroesse.getElements())){
             if (g.isSelected())
                 return g.getText();
@@ -146,17 +165,21 @@ public class Shop extends JFrame {
     }
 
     private void hinzufuegen(String kleidung, String farbe, String groesse) {
+        //fügt Objekte zum Warenkorb hinzu
         warenkorb.add(kleidung,farbe,groesse);
 
+        //Berechnung von Preis und adierung zum Gesamtpreis
         double kleidungspreis = getKleidungspreis(kleidung) + getFarbenpreis(farbe) + getGroessenpreis(groesse);
         endPreis += kleidungspreis;
 
+        //updated Shop Fenster
         generierenWarenkorbItem(kleidung +" (" + groesse + ") " + farbe + "  :" + kleidungspreis + "€");
         updatePreistext();
 
     }
 
     private void clearWarenkorb() {
+        //Alles wird auf null gesetzt
         warenkorb.clear();
         endPreis = 0;
         updatePreistext();
@@ -166,12 +189,13 @@ public class Shop extends JFrame {
     }
 
     private void einkaufen() {
+        //neues Fenster wird geöffnet mit Benachrichtigung
         JOptionPane.showMessageDialog(frame, "Danke für ihren Einkauf!");
         clearWarenkorb();
     }
 
     private void generierenWarenkorbItem(String text) {
-
+        //Text hinzufügen und linebreak anfügen
         textArea.append(text);
         textArea.append("\n");
            
@@ -179,7 +203,6 @@ public class Shop extends JFrame {
 
     public double getKleidungspreis (String kleidung){
         // Grundpreis für mögliche Klamotten festsetzen
-
         switch (kleidung){
             case "Jacke":
                 return 39.99;
@@ -197,7 +220,6 @@ public class Shop extends JFrame {
 
     public double getFarbenpreis (String farbe){
         // Preiszuschlag für versch. Farben festsetzen
-
         switch (farbe){
             case "rot":
                 return 4;
@@ -217,7 +239,6 @@ public class Shop extends JFrame {
 
     public double getGroessenpreis(String groesse){
         // Preiszuschlag für versch. Größen festsetzen
-
         switch (groesse){
             case "S":
                 return 1;
@@ -230,11 +251,14 @@ public class Shop extends JFrame {
     }
 
     private void updatePreistext() {
+        //rabattrate hinzufügen falls activiert
         double preis = endPreis;
         if (mitRabatt){
             preis = preis * rabattRate;
         }
-        preis = (Math.ceil(preis * 100)) / 100;//Runden auf zwei Kommastellen
+        //Runden auf zwei Nachkommastellen
+        preis = (Math.ceil(preis * 100)) / 100;
+        //Ausgabe im Preistextfeld
         tf_preis.setText(preis + " €");
     }
 
