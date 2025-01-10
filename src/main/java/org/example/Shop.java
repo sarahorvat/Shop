@@ -27,7 +27,7 @@ public class Shop extends JFrame {
     private JLabel lbl_preis;
     private JTextField tf_preis;
     private JButton bt_einkaufen;
-    private JCheckBox ckeck_rabatt;
+    private JCheckBox check_rabatt;
 
     private Warenkorb warenkorb;
     private double endPreis;
@@ -35,6 +35,8 @@ public class Shop extends JFrame {
     private ButtonGroup buttonGroupFarbe = new ButtonGroup();
 
     private ButtonGroup buttonGroupGroesse = new ButtonGroup();
+    private static double rabattRate = 0.5;
+
 
     public Shop() {
 
@@ -214,9 +216,12 @@ public class Shop extends JFrame {
     }
 
     private void updatePreistext() {
+        double preis = endPreis;
+        if (check_rabatt.isSelected()){
+            preis = preis * rabattRate;
+        }
 
-        tf_preis.setText(String.valueOf(endPreis));
-
+        tf_preis.setText(String.valueOf(preis));
     }
 
 
