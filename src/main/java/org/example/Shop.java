@@ -3,7 +3,6 @@ package org.example;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Collections;
 
 
@@ -59,7 +58,7 @@ public class Shop extends JFrame {
         buttonGroupGroesse.add(radio_m);
         buttonGroupGroesse.add(radio_l);
 
-
+        //Anzeige optimieren
         setTitle("Shop");
         setContentPane(frame);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -98,6 +97,7 @@ public class Shop extends JFrame {
             }
         });
 
+        //Warenkorb leeren durch "löschen"
         bt_löschen.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -105,6 +105,7 @@ public class Shop extends JFrame {
             }
         });
 
+        //Warenkorb leeren nach abgeschlossenem Einkauf
         bt_einkaufen.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -115,6 +116,7 @@ public class Shop extends JFrame {
 
         initObjekte();
 
+        //Rabattaktion hinzufügen
         check_rabatt.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
