@@ -8,7 +8,7 @@ class ShopTest {
 
     @org.junit.jupiter.api.Test
     void getKleidungspreis() {
-        shop.combo_auswahl.setSelectedItem("Hose");
+        shop.cb_kleidungAuswahl.setSelectedItem("Hose");
         assertEquals("Hose", shop.getAusgewaehlteKleidung());
     }
 

@@ -7,10 +7,10 @@ import java.util.Collections;
 
 
 public class Shop extends JFrame {
-    //Swing objects
+    // Swing objects...
     private JLabel lbl_auswahl;
     private JPanel frame;
-    public JComboBox combo_auswahl;
+    public JComboBox cb_kleidungAuswahl;
     private JLabel lbl_farbe;
     private JRadioButton radio_rot;
     public JRadioButton radio_grün;
@@ -24,21 +24,21 @@ public class Shop extends JFrame {
     private JRadioButton radio_l;
     private JButton bt_hinzufügen;
     private JLabel lbl_warenkorb;
-    private JTextArea textArea;
+    private JTextArea ta_warenkorb;
     private JButton bt_löschen;
     private JLabel lbl_preis;
     private JTextField tf_preis;
     private JButton bt_einkaufen;
     private JCheckBox check_rabatt;
 
-    //Attribute
-    //Übersicht der Preise und Waren
+    // Attribute
+    // Übersicht der Preise und Waren
     private Warenkorb warenkorb = new Warenkorb();
     private double endPreis;
     private boolean mitRabatt = false;
     private static double rabattRate = 0.5;
 
-    //Manuelle Buttongroups um auf sie zugreifen zu können
+    // Manuelle Buttongroups um auf sie zugreifen zu können
     private ButtonGroup buttonGroupFarbe = new ButtonGroup();
     private ButtonGroup buttonGroupGroesse = new ButtonGroup();
 
@@ -46,7 +46,7 @@ public class Shop extends JFrame {
 
     public Shop() {
 
-        //hinzufügen zu Buttongroups:
+        // Hinzufügen zu Buttongroups:
         buttonGroupFarbe.add(radio_rot);
         buttonGroupFarbe.add(radio_gelb);
         buttonGroupFarbe.add(radio_schwarz);
@@ -58,7 +58,7 @@ public class Shop extends JFrame {
         buttonGroupGroesse.add(radio_m);
         buttonGroupGroesse.add(radio_l);
 
-        //Anzeige optimieren
+        // Anzeige optimieren
         setTitle("Shop");
         setContentPane(frame);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -77,7 +77,7 @@ public class Shop extends JFrame {
                     String groesse = getAusgewaehlteGroesse();
                     String farbe = getAusgewaehlteFarbe();
 
-                    //falls etwas nicht ausgewählt ist wird Exception geworfen
+                    // Falls etwas nicht ausgewählt ist, wird Exception geworfen
                     if (kleidung.equals("-")){
                         throw new Exception("Bitte wähle dein Kleidungsstück");
                     }
@@ -90,14 +90,15 @@ public class Shop extends JFrame {
 
                     hinzufuegen(kleidung, farbe, groesse);
                 } catch (Exception exception) {
-                    //neues Fenster öffnen zur Fehlermeldung
+                    // Neues Fenster öffnen zur Fehlermeldung
                     JOptionPane.showMessageDialog(frame,exception.getMessage());
                 }
-                resetSelection();
+
+                resetAuswahl();
             }
         });
 
-        //Warenkorb leeren durch "löschen"
+        // Warenkorb leeren durch "löschen"
         bt_löschen.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -105,7 +106,7 @@ public class Shop extends JFrame {
             }
         });
 
-        //Warenkorb leeren nach abgeschlossenem Einkauf
+        // Warenkorb leeren nach abgeschlossenem Einkauf
         bt_einkaufen.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -114,9 +115,7 @@ public class Shop extends JFrame {
             }
         });
 
-        initObjekte();
-
-        //Rabattaktion hinzufügen
+        // Rabattaktion hinzufügen
         check_rabatt.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -124,25 +123,54 @@ public class Shop extends JFrame {
                 updatePreistext();
             }
         });
+
+        initObjekte();
     }
 
     private void initObjekte() {
-        //fügt automatisch drei Objekte zum Warenkorb hinzu
+        // Fügt automatisch drei Objekte zum Warenkorb hinzu
         hinzufuegen("Tshirt","rot","S");
         hinzufuegen("Hose", "blau", "M");
         hinzufuegen("Cap", "pink", "L");
     }
 
-    private void resetSelection(){
-        //löscht Inhalt des Warenkorbs und Anzeige
-        buttonGroupFarbe.clearSelection();
-        buttonGroupGroesse.clearSelection();
-        combo_auswahl.setSelectedItem("-");
 
+    public String getAusgewaehlteKleidung() {
+        // Kleidungsstück wird aus ComboBox ausgewählt
+        return cb_kleidungAuswahl.getSelectedItem().toString();
     }
 
-    public String getKassenzettel(){
-        //Ausgabe der gekauften Waren plus Summe
+    public String getAusgewaehlteFarbe() {
+        // Quelle für Collections.list: https://stackoverflow.com/questions/1240077/why-cant-i-use-foreach-on-java-enumeration
+        // Geht durch jeden Button in der Farben-ButtonGroup und prüft, ob dieser ausgewählt ist
+        for (AbstractButton b : Collections.list(buttonGroupFarbe.getElements())) {
+            // Wenn ausgewählt, wird Text des Buttons zurückgegeben
+            if (b.isSelected()) {
+                return b.getText();
+            }
+        }
+
+        return null;
+    }
+
+    public String getAusgewaehlteGroesse() {
+        // Quelle für Collections.list: https://stackoverflow.com/questions/1240077/why-cant-i-use-foreach-on-java-enumeration
+        // Geht durch jeden Button in der Größen-ButtonGroup und prüft, ob dieser ausgewählt ist
+        for (AbstractButton b : Collections.list(buttonGroupGroesse.getElements())){
+            // Wenn ausgewählt, wird Text des Buttons zurückgegeben
+            if (b.isSelected())
+                return b.getText();
+        }
+        return null;
+    }
+
+
+
+    private String getKassenzettel(){
+        // Ausgabe der gekauften Waren plus Summe
+        // Quelle:  https://stackoverflow.com/questions/6431933/how-to-format-strings-in-java
+        // und:     https://stackoverflow.com/questions/433958/java-decimal-formatting-using-string-format
+
         String result = "gekaufte Ware: \n";
         for (Ware w : warenkorb.waren){
             result += String.format(" %s, %s, %s\n", w.kleidung, w.farbe, w.groesse);
@@ -151,74 +179,55 @@ public class Shop extends JFrame {
         return result;
     }
 
-    public String getAusgewaehlteKleidung() {
-        //Kleidungsstück wird aus combo Box ausgewählt
-        return combo_auswahl.getSelectedItem().toString();
-    }
-
-    public String getAusgewaehlteFarbe() {
-        //geht durch jeden Button in der Buttongroup "Farbe" und prüft, ob dieser ausgewählt ist
-        //wenn ausgewählt wird Text des Buttons zurückgegeben
-        for (AbstractButton b : Collections.list(buttonGroupFarbe.getElements())) {
-            if (b.isSelected()) {
-                return b.getText();
-            }
-        }
-        return null;
-    }
-
-    public String getAusgewaehlteGroesse() {
-        //geht durch jeden Button in der Buttongroup "Größe" und prüft, ob dieser ausgewählt ist
-        //wenn ausgewählt wird Text des Buttons zurückgegeben
-        for (AbstractButton g : Collections.list(buttonGroupGroesse.getElements())){
-            if (g.isSelected())
-                return g.getText();
-        }
-        return null;
-    }
 
     private void hinzufuegen(String kleidung, String farbe, String groesse) {
-        //fügt Objekte zum Warenkorb hinzu
+        // Fügt Objekte zum Warenkorb hinzu
         warenkorb.add(kleidung,farbe,groesse);
 
-        //Berechnung von Preis und Addierung zum Gesamtpreis
+        // Berechnung von Preis und Addition zum Gesamtpreis
         double kleidungspreis = getKleidungspreis(kleidung) + getFarbenpreis(farbe) + getGroessenpreis(groesse);
         endPreis += kleidungspreis;
 
-        //rundet Kleidungspreis auf zwei Nachkommastellen
-        kleidungspreis = (Math.ceil(kleidungspreis * 100)) / 100;
-
-        //updated Shop Fenster
+        // Updated Shop Fenster
+        // Quelle:  https://stackoverflow.com/questions/6431933/how-to-format-strings-in-java
+        // und:     https://stackoverflow.com/questions/433958/java-decimal-formatting-using-string-format
         generierenWarenkorbItem(String.format("%s (%s) %s: %.2f €", kleidung, groesse, farbe, kleidungspreis));
         updatePreistext();
-
-    }
-
-    private void clearWarenkorb() {
-        //alles wird auf null gesetzt
-        warenkorb.clear();
-        endPreis = 0;
-        updatePreistext();
-        textArea.setText("");
-        check_rabatt.setSelected(false);
-
     }
 
     private void einkaufen() {
-        //neues Fenster wird geöffnet mit Benachrichtigung
+        // Neues Fenster wird geöffnet mit Benachrichtigung
         JOptionPane.showMessageDialog(frame, getKassenzettel(), "Danke für Ihren Einkauf!", JOptionPane.PLAIN_MESSAGE);
         clearWarenkorb();
     }
 
-    private void generierenWarenkorbItem(String text) {
-        //Text hinzufügen und linebreak anfügen
-        textArea.append(text);
-        textArea.append("\n");
-           
-        }
+    private void clearWarenkorb() {
+        // Alles wird auf null gesetzt
+        warenkorb.clear();
+        endPreis = 0;
+        updatePreistext();
+        ta_warenkorb.setText("");
+        check_rabatt.setSelected(false);
 
-    public double getKleidungspreis (String kleidung){
-        //Grundpreis für mögliche Klamotten festsetzen
+    }
+
+    private void resetAuswahl(){
+        // Löscht Inhalt des Warenkorbs und Anzeige
+        buttonGroupFarbe.clearSelection();
+        buttonGroupGroesse.clearSelection();
+        cb_kleidungAuswahl.setSelectedItem("-");
+    }
+
+    private void generierenWarenkorbItem(String text) {
+        // Text und linebreak der "Warenkorb"-TextArea hinzufügen
+        ta_warenkorb.append(text);
+        ta_warenkorb.append("\n");
+    }
+
+
+
+    private double getKleidungspreis (String kleidung){
+        // Grundpreis für mögliche Klamotten festsetzen
         switch (kleidung){
             case "Jacke":
                 return 39.99;
@@ -234,8 +243,8 @@ public class Shop extends JFrame {
         return 0;
     }
 
-    public double getFarbenpreis (String farbe){
-        //Preiszuschlag für versch. Farben festsetzen
+    private double getFarbenpreis (String farbe){
+        // Preiszuschlag für versch. Farben festsetzen
         switch (farbe){
             case "rot":
                 return 4;
@@ -253,7 +262,7 @@ public class Shop extends JFrame {
         return 0;
     }
 
-    public double getGroessenpreis(String groesse){
+    private double getGroessenpreis(String groesse){
         // Preiszuschlag für verschiedene Größen festsetzen
         switch (groesse){
             case "S":
@@ -266,8 +275,9 @@ public class Shop extends JFrame {
         return 0;
     }
 
-    public double getPreismitRabatt(){
-        //Rabattrate hinzufügen falls aktiviert
+
+    private double getPreismitRabatt(){
+        // Rabattrate hinzufügen, falls aktiviert
         double preis = endPreis;
         if (mitRabatt) {
             preis = preis * rabattRate;
@@ -278,18 +288,16 @@ public class Shop extends JFrame {
     private void updatePreistext() {
         double preis = getPreismitRabatt();
 
-        //runden auf zwei Nachkommastellen
+        // Runden auf zwei Nachkommastellen
         preis = (Math.ceil(preis * 100)) / 100;
 
-        //Ausgabe im Preistextfeld
+        // Ausgabe im Preistextfeld
         tf_preis.setText(preis + " €");
     }
 
 
-
     public static void main(String[] args) {
         new Shop();
-
     }
 }
 

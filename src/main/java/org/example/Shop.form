@@ -21,7 +21,7 @@
           <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
       </hspacer>
-      <component id="96c89" class="javax.swing.JComboBox" binding="combo_auswahl">
+      <component id="96c89" class="javax.swing.JComboBox" binding="cb_kleidungAuswahl">
         <constraints>
           <grid row="2" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -122,7 +122,7 @@
           <text value="Warenkorb"/>
         </properties>
       </component>
-      <component id="b2639" class="javax.swing.JTextArea" binding="textArea">
+      <component id="b2639" class="javax.swing.JTextArea" binding="ta_warenkorb">
         <constraints>
           <grid row="2" column="5" row-span="10" col-span="3" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="50"/>
@@ -248,19 +248,4 @@
       </component>
     </children>
   </grid>
-  <buttonGroups>
-    <group name="buttonGroupFarbe">
-      <member id="b03a9"/>
-      <member id="b992c"/>
-      <member id="a1f59"/>
-      <member id="f0e6f"/>
-      <member id="15517"/>
-      <member id="92b0a"/>
-    </group>
-    <group name="buttonGroupGroesse">
-      <member id="56373"/>
-      <member id="dd74f"/>
-      <member id="acf19"/>
-    </group>
-  </buttonGroups>
 </form>
