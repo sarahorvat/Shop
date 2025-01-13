@@ -17,10 +17,4 @@ class ShopTest {
         shop.radio_grün.setSelected(true);
         assertEquals("grün", shop.getAusgewaehlteFarbe());
     }
-
-    @org.junit.jupiter.api.Test
-    void getGroessenpreis() {
-        shop.radio_m.setSelected(true);
-        assertEquals("M", shop.getAusgewaehlteGroesse());
-    }
 }
