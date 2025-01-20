@@ -111,7 +111,6 @@ public class Shop extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 einkaufen();
-                clearWarenkorb();
             }
         });
 
@@ -132,6 +131,7 @@ public class Shop extends JFrame {
         hinzufuegen("Tshirt","rot","S");
         hinzufuegen("Hose", "blau", "M");
         hinzufuegen("Cap", "pink", "L");
+
     }
 
 
@@ -149,7 +149,6 @@ public class Shop extends JFrame {
                 return b.getText();
             }
         }
-
         return null;
     }
 
@@ -166,7 +165,7 @@ public class Shop extends JFrame {
 
 
 
-    private String getKassenzettel(){
+    private String getKassenzettel() {
         // Ausgabe der gekauften Waren plus Summe
         // Quelle:  https://stackoverflow.com/questions/6431933/how-to-format-strings-in-java
         // und:     https://stackoverflow.com/questions/433958/java-decimal-formatting-using-string-format
@@ -204,11 +203,13 @@ public class Shop extends JFrame {
     private void clearWarenkorb() {
         // Alles wird auf null gesetzt
         warenkorb.clear();
+        ta_warenkorb.setText("");
+
         endPreis = 0;
         updatePreistext();
-        ta_warenkorb.setText("");
-        check_rabatt.setSelected(false);
 
+        check_rabatt.setSelected(false);
+        mitRabatt = false;
     }
 
     private void resetAuswahl(){
